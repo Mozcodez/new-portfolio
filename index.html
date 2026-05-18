@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <link rel="icon" type="image/png" href="assets/favicon.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Peter Vincent |Portfolio</title>
+  <title>Petro Vincent |Portfolio</title>
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -624,6 +624,88 @@
       font-size: .72rem; color: var(--muted);
     }
 
+    .overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  z-index: 10;
+  cursor: pointer;
+}
+.overlay.active { display: block; }
+
+.focused-card {
+  display: none;
+  position: fixed;
+  z-index: 20;
+  top: 55%;
+  left: 50%;
+  transform: translate(-53%, -50%);
+  height: auto;
+  width: min(400px, 90vw);
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 12px 48px rgba(0,0,0,0.25);
+  overflow: hidden;
+  animation: popIn 0.3s cubic-bezier(.25,.8,.25,1);
+  cursor: default;
+}
+
+@keyframes popIn {
+  from { transform: translate(-50%, -50%) scale(0.88); opacity: 0; }
+  to   { transform: translate(-50%, -50%) scale(1);    opacity: 1; }
+}
+
+.focused-card .project-img { height: 160px; font-size: 3rem; }
+.focused-card .project-body { padding: 20px; }
+
+.project-card { cursor: pointer; transition: filter 0.35s ease, opacity 0.35s ease; }
+.project-card.blurred { filter: blur(3px); opacity: 0.4; pointer-events: none; }
+
+.focused-card .project-body {
+  display: none;
+  animation: fadeInBody 0.3s ease 0.25s forwards;
+}
+
+.focused-card.loaded .project-body {
+  display: block;
+}
+
+@keyframes fadeInBody {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.focused-card .project-img {
+  height: 50%;
+  transition: height 0.3s ease;
+}
+
+.focused-card.loaded .project-img {
+  height: 200px;
+}
+
+.slide-img {
+  transition: transform 0.6s ease, opacity 0.6s ease;
+}
+
+.slide-img.sliding-out {
+  transform: translateX(-100%);
+  opacity: 0;
+}
+
+.slide-img.sliding-in {
+  transform: translateX(100%);
+  opacity: 0;
+  transition: none;
+}
+
+.slide-img.sliding-in.active {
+  transform: translateX(0);
+  opacity: 1;
+  transition: transform 0.6s ease, opacity 0.6s ease;
+}
+
     /* ─── Testimonials ──────────────────────────────────────────── */
     #testimonials { background: var(--bg2); }
 
@@ -822,10 +904,10 @@
       <!-- Text -->
       <div class="col-lg-6 hero-content" style="padding-left: 70px; position: relative;">
         <div class="hero-socials">
-          <a href="#"><i class="bi bi-github"></i></a>
-          <a href="#"><i class="bi bi-linkedin"></i></a>
-          <a href="#"><i class="bi bi-twitter-x"></i></a>
-          <a href="#"><i class="bi bi-dribbble"></i></a>
+          <a href="https://www.instagram.com/mk_creatives57/" target="_blank"><i class="bi bi-instagram"></i></a>
+          <a href="https://tiktok.com/mk_creatives57/" target="_blank"><i class="bi bi-tiktok"></i></a>
+          <a href="mailto:petervicenty9@gmail.com"><i class="bi bi-envelope"></i></a>
+          <a href="https://wa.me/255764065715" target="_blank"><i class="bi bi-whatsapp"></i></a>
         </div>
 
         <div class="hero-badge">
@@ -1002,7 +1084,19 @@ graphics, branding, and video I bring ideas to life in ways that are impossible 
     </div>
   </div>
 </section>
+ocusedCard.querySelectorAll('.slide-img[data-images]').forEach(img => {
+      const images = JSON.parse(img.dataset.images);
+      let index = 0;
 
+      setInterval(() => {
+        img.classList.add('fading');
+        setTimeout(() => {
+          index = (index + 1) % images.length;
+          img.src = images[index];
+          img.classList.remove('fading');
+        }, 200);
+      }, 5000);
+    });
 <!-- ═══ SERVICES ══════════════════════════════════════════════════ -->
 <section id="services">
   <div class="container">
@@ -1089,131 +1183,132 @@ and consistently in any market.</p>
       </div>
     </div>
 
-    <div class="row g-4" id="projectGrid">
-      <div class="col-md-6 col-lg-4 reveal project-item" data-category="web">
-        <div class="project-card">
-          <div class="project-img" style="background: linear-gradient(135deg, #1a2235 0%, #0d1220 100%);">
-            🛒
-            <div class="project-img-overlay">
-              <a href="#" class="project-link"><i class="bi bi-eye"></i></a>
-              <a href="#" class="project-link" style="background: var(--accent2);color:white;"><i class="bi bi-github"></i></a>
-            </div>
-          </div>
-          <div class="project-body">
-            <h5 class="mb-2" style="font-family: var(--font-head); font-weight:700;">Oasis Technologies</h5>
-            <p class="text-muted" style="font-size:.85rem;">Full-stack shop with real-time inventory, Stripe payments, and admin dashboard.</p>
-            <div class="project-tags">
-              <span class="project-tag">Photoshop</span>
-              <span class="project-tag">Cosmos</span>
-              <span class="project-tag">LIghtroom</span>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div class="overlay" id="overlay"></div>
+      <div class="focused-card" id="focusedCard"></div>
 
-      <div class="col-md-6 col-lg-4 reveal project-item" data-category="web">
-        <div class="project-card">
-          <div class="project-img" style="background: linear-gradient(135deg, #1a1035 0%, #0d0820 100%);">
-            📊
-            <div class="project-img-overlay">
-              <a href="#" class="project-link"><i class="bi bi-eye"></i></a>
-              <a href="#" class="project-link" style="background: var(--accent2);color:white;"><i class="bi bi-github"></i></a>
+        <div class="row g-4" id="projectGrid">
+          <div class="col-md-6 col-lg-4 reveal project-item" data-category="web">
+            <div class="project-card">
+              <div class="project-img" style="background: linear-gradient(135deg, #1a2235 0%, #0d1220 100%);">
+                <img src="assets/IMG_2170.PNG" alt="Oasis Technologies" class="slide-img"
+       data-images='["assets/IMG_2170.PNG", "assets/IMG_2168.PNG"]' style="width:100%; height:100%; object-fit:cover; object-position: top; display:block;">
+                <div class="project-img-overlay">
+                  
+                </div>
+              </div>
+              <div class="project-body">
+                <h5 class="mb-2" style="font-family: var(--font-head); font-weight:700;">Oasis Technologies</h5>
+                <p class="text-muted" style="font-size:.85rem;">Full-stack shop with real-time inventory, Stripe payments, and admin dashboard.</p>
+                <div class="project-tags">
+                  <span class="project-tag">Photoshop</span>
+                  <span class="project-tag">Cosmos</span>
+                  <span class="project-tag">LIghtroom</span>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="project-body">
-            <h5 class="mb-2" style="font-family: var(--font-head); font-weight:700;">Mama Chakula</h5>
-            <p class="text-muted" style="font-size:.85rem;">Real-time social media analytics with charts, reports, and team collaboration.</p>
-            <div class="project-tags">
-              <span class="project-tag">Photoshop</span>
-              <span class="project-tag">Pinterest</span>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <div class="col-md-6 col-lg-4 reveal project-item" data-category="mobile">
-        <div class="project-card">
-          <div class="project-img" style="background: linear-gradient(135deg, #0d2035 0%, #082014 100%);">
-            🎮
-            <div class="project-img-overlay">
-              <a href="#" class="project-link"><i class="bi bi-eye"></i></a>
-              <a href="#" class="project-link" style="background: var(--accent2);color:white;"><i class="bi bi-github"></i></a>
+          <div class="col-md-6 col-lg-4 reveal project-item" data-category="web">
+            <div class="project-card">
+              <div class="project-img" style="background: linear-gradient(135deg, #1a2235 0%, #0d1220 100%);">
+                <img src="assets/IMG_2165.PNG" alt="Oasis Technologies" style="width:100%; height:100%; object-fit:cover; object-position: top; display:block;">
+                <div class="project-img-overlay">
+                  
+                </div>
+              </div>
+              <div class="project-body">
+                <h5 class="mb-2" style="font-family: var(--font-head); font-weight:700;">Mama Chakula</h5>
+                <p class="text-muted" style="font-size:.85rem;">Real-time social media analytics with charts, reports, and team collaboration.</p>
+                <div class="project-tags">
+                  <span class="project-tag">Photoshop</span>
+                  <span class="project-tag">Pinterest</span>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="project-body">
-            <h5 class="mb-2" style="font-family: var(--font-head); font-weight:700;">Karanga inc</h5>
-            <p class="text-muted" style="font-size:.85rem;">Real-time multiplayer mobile gaming with Socket.io and leaderboards.</p>
-            <div class="project-tags">
-              <span class="project-tag">React Native</span>
-              <span class="project-tag">Socket.io</span>
-              <span class="project-tag">Redis</span>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <div class="col-md-6 col-lg-4 reveal project-item" data-category="design">
-        <div class="project-card">
-          <div class="project-img" style="background: linear-gradient(135deg, #1a0d35 0%, #100820 100%);">
-            🎨
-            <div class="project-img-overlay">
-              <a href="#" class="project-link"><i class="bi bi-eye"></i></a>
-              <a href="#" class="project-link" style="background: var(--accent2);color:white;"><i class="bi bi-github"></i></a>
+          <div class="col-md-6 col-lg-4 reveal project-item" data-category="mobile">
+            <div class="project-card">
+              <div class="project-img" style="background: linear-gradient(135deg, #1a2235 0%, #0d1220 100%);">
+                <img src="assets/IMG_2171.JPG" alt="Oasis Technologies" style="width:100%; height:100%; object-fit:cover; object-position: top; display:block;">
+                <div class="project-img-overlay">
+                  
+                </div>
+              </div>
+              <div class="project-body">
+                <h5 class="mb-2" style="font-family: var(--font-head); font-weight:700;">Karanga inc</h5>
+                <p class="text-muted" style="font-size:.85rem;">Real-time multiplayer mobile gaming with Socket.io and leaderboards.</p>
+                <div class="project-tags">
+                  <span class="project-tag">React Native</span>
+                  <span class="project-tag">Socket.io</span>
+                  <span class="project-tag">Redis</span>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="project-body">
-            <h5 class="mb-2" style="font-family: var(--font-head); font-weight:700;">Watoto Foundation</h5>
-            <p class="text-muted" style="font-size:.85rem;">Complete brand system for a fintech startup — logo, design tokens, and style guide.</p>
-            <div class="project-tags">
-              <span class="project-tag">Figma</span>
-              <span class="project-tag">Illustrator</span>
-              <span class="project-tag">Branding</span>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <div class="col-md-6 col-lg-4 reveal project-item" data-category="web">
-        <div class="project-card">
-          <div class="project-img" style="background: linear-gradient(135deg, #0d1a35 0%, #081220 100%);">
-            💼
-            <div class="project-img-overlay">
-              <a href="#" class="project-link"><i class="bi bi-eye"></i></a>
-              <a href="#" class="project-link" style="background: var(--accent2);color:white;"><i class="bi bi-github"></i></a>
+          <div class="col-md-6 col-lg-4 reveal project-item" data-category="design">
+            <div class="project-card">
+              <div class="project-img" style="background: linear-gradient(135deg, #1a2235 0%, #0d1220 100%);">
+                <img src="assets/IMG_2166.PNG" alt="Oasis Technologies" class="slide-img"
+       data-images='["assets/IMG_2166.PNG", "assets/IMG_2164.PNG"]' style="width:100%; height:100%; object-fit:cover; object-position: top; display:block;">
+                <div class="project-img-overlay">
+                  
+                </div>
+              </div>
+              <div class="project-body">
+                <h5 class="mb-2" style="font-family: var(--font-head); font-weight:700;">Watoto Foundation</h5>
+                <p class="text-muted" style="font-size:.85rem;">Complete brand system for a fintech startup — logo, design tokens, and style guide.</p>
+                <div class="project-tags">
+                  <span class="project-tag">Figma</span>
+                  <span class="project-tag">Illustrator</span>
+                  <span class="project-tag">Branding</span>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="project-body">
-            <h5 class="mb-2" style="font-family: var(--font-head); font-weight:700;">Mkolinto Brand</h5>
-            <p class="text-muted" style="font-size:.85rem;">Financial literacy tool with income tracking, budgeting, and savings calculators.</p>
-            <div class="project-tags">
-              <span class="project-tag">Canva pro</span>
-              <span class="project-tag">Cosmos</span>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <div class="col-md-6 col-lg-4 reveal project-item" data-category="mobile">
-        <div class="project-card">
-          <div class="project-img" style="background: linear-gradient(135deg, #1a2035 0%, #0d1530 100%);">
-            🗺️
-            <div class="project-img-overlay">
-              <a href="#" class="project-link"><i class="bi bi-eye"></i></a>
-              <a href="#" class="project-link" style="background: var(--accent2);color:white;"><i class="bi bi-github"></i></a>
+          <div class="col-md-6 col-lg-4 reveal project-item" data-category="web">
+            <div class="project-card">
+              <div class="project-img" style="background: linear-gradient(135deg, #1a2235 0%, #0d1220 100%);">
+                <img src="assets/IMG_2162.PNG" alt="Oasis Technologies" style="width:100%; height:100%; object-fit:cover; object-position: top; display:block;">
+                <div class="project-img-overlay">
+                  
+                </div>
+              </div>
+              <div class="project-body">
+                <h5 class="mb-2" style="font-family: var(--font-head); font-weight:700;">Mkolinto Brand</h5>
+                <p class="text-muted" style="font-size:.85rem;">Financial literacy tool with income tracking, budgeting, and savings calculators.</p>
+                <div class="project-tags">
+                  <span class="project-tag">Canva pro</span>
+                  <span class="project-tag">Cosmos</span>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="project-body">
-            <h5 class="mb-2" style="font-family: var(--font-head); font-weight:700;">DIY Inc</h5>
-            <p class="text-muted" style="font-size:.85rem;">Interactive travel guide for Tanzania with maps, reviews, and booking.</p>
-            <div class="project-tags">
-              <span class="project-tag">Flutter</span>
-              <span class="project-tag">Maps API</span>
-              <span class="project-tag">Firebase</span>
+
+          <div class="col-md-6 col-lg-4 reveal project-item" data-category="mobile">
+            <div class="project-card">
+             <div class="project-img" style="background: linear-gradient(135deg, #1a2235 0%, #0d1220 100%);">
+                <img src="assets/IMG_2161.PNG" alt="Oasis Technologies" style="width:100%; height:100%; object-fit:cover; object-position: top; display:block;">
+                <div class="project-img-overlay">
+                  
+                </div>
+              </div>
+              <div class="project-body">
+                <h5 class="mb-2" style="font-family: var(--font-head); font-weight:700;">DIY Inc</h5>
+                <p class="text-muted" style="font-size:.85rem;">Interactive travel guide for Tanzania with maps, reviews, and booking.</p>
+                <div class="project-tags">
+                  <span class="project-tag">Flutter</span>
+                  <span class="project-tag">Maps API</span>
+                  <span class="project-tag">Firebase</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      
+    
   </div>
 </section>
 
@@ -1352,9 +1447,9 @@ and consistently in any market.</p>
   <div class="container">
     <div class="row g-4 align-items-center">
       <div class="col-lg-4">
-        <div class="footer-brand">Alex<span>.</span>Nova</div>
+        <div class="footer-brand"><span>.</span>Vincent</div>
         <p class="text mt-2" style="font-size:.88rem; max-width:260px;">
-          Building digital products that make a difference, one line of code at a time.
+          Building Graphics that make a difference.
         </p>
       </div>
       <div class="col-lg-4 text-lg-center">
@@ -1483,6 +1578,63 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
       item.style.pointerEvents = show ? 'all' : 'none';
     });
   });
+});
+
+const overlay     = document.getElementById('overlay');
+const focusedCard = document.getElementById('focusedCard');
+const allCards    = document.querySelectorAll('.project-card');
+
+allCards.forEach(card => {
+  card.addEventListener('click', () => {
+    focusedCard.innerHTML = card.innerHTML;
+    focusedCard.style.display = 'block';
+    overlay.classList.add('active');
+    allCards.forEach(c => { if (c !== card) c.classList.add('blurred'); });
+
+
+    document.body.style.overflow = 'hidden';
+  });
+});
+
+focusedCard.querySelectorAll('.slide-img[data-images]').forEach(img => {
+      const images = JSON.parse(img.dataset.images);
+      let index = 0;
+
+      setInterval(() => {
+        img.classList.add('fading');
+        setTimeout(() => {
+          index = (index + 1) % images.length;
+          img.src = images[index];
+          img.classList.remove('fading');
+        }, 200);
+      }, 5000);
+    });
+
+function closeCard() {
+  focusedCard.style.display = 'none';
+  overlay.classList.remove('active');
+  allCards.forEach(c => c.classList.remove('blurred'));
+
+   document.body.style.overflow = '';
+}
+
+overlay.addEventListener('click', closeCard);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeCard(); });
+
+document.querySelectorAll('.slide-img[data-images]').forEach(img => {
+  const images = JSON.parse(img.dataset.images);
+  let index = 0;
+
+  setInterval(() => {
+    img.classList.add('fading');
+
+    setTimeout(() => {
+      index = (index + 1) % images.length;
+      img.src = images[index];
+      img.classList.remove('fading');
+    }, 200); // matches the CSS transition duration
+
+  }, 5000); // swap every 3 seconds — change to taste
 });
 
 // ── Smooth nav close on mobile ────────────────────────────────────
