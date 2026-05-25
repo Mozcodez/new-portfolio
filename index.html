@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <link rel="icon" type="image/jpeg" href="assets/favicon.jpeg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Petro Vincent |Portfolio</title>
 
@@ -778,6 +778,25 @@
     .form-control-custom::placeholder { color: var(--muted); }
     textarea.form-control-custom { resize: vertical; min-height: 140px; }
     label { font-size: .82rem; color: var(--muted); margin-bottom: 8px; display: block; }
+    .form-status {
+      display: none;
+      align-items: center;
+      gap: 10px;
+      margin-top: 14px;
+      padding: 11px 14px;
+      border: 1px solid rgba(0,229,255,.25);
+      border-radius: 10px;
+      background: rgba(0,229,255,.08);
+      color: var(--text);
+      font-size: .88rem;
+    }
+    .form-status.show { display: flex; }
+    .form-status i { color: var(--accent); }
+    .form-status.error {
+      border-color: rgba(239,68,68,.3);
+      background: rgba(239,68,68,.1);
+    }
+    .form-status.error i { color: #ef4444; }
 
     /* ─── Footer ────────────────────────────────────────────────── */
     footer {
@@ -945,7 +964,7 @@ bold aesthetics, strategic branding, and cinematic storytelling.
           <div class="avatar-ring ring-1"></div>
           <div class="avatar-ring ring-2"></div>
           <div class="avatar-ring ring-3"></div>
-          <img src="assets/hero.png" alt="Profile Photo" class="hero-avatar" style="object-fit: cover; object-position: center top;" />
+          <img src="assets/hero.jpeg" alt="Profile Photo" class="hero-avatar" style="object-fit: cover; object-position: center top;" />
           <div class="float-badge fb-1">
             <i class="bi bi-lightning-charge-fill"></i> Adobe Expert
           </div>
@@ -972,7 +991,7 @@ bold aesthetics, strategic branding, and cinematic storytelling.
     <div class="row g-5 align-items-center">
       <div class="col-lg-5 reveal">
         <div class="about-img-wrap">
-          <img src="assets/about.png" alt="Profile Photo" class="about-avatar" style="object-fit: cover; object-position: center top;" />
+          <img src="assets/about.jpeg" alt="Profile Photo" class="about-avatar" style="object-fit: cover; object-position: center top;" />
           <div class="about-tag">Graphics Designer</div>
         </div>
       </div>
@@ -998,7 +1017,7 @@ graphics, branding, and video I bring ideas to life in ways that are impossible 
           
         </div>
 
-        <a href="#" class="btn-primary-custom">
+        <a href="./assets/Petro CV.pdf" download="Petro-CV.pdf" class="btn-primary-custom">
           <i class="bi bi-download"></i> Download CV
         </a>
       </div>
@@ -1084,19 +1103,7 @@ graphics, branding, and video I bring ideas to life in ways that are impossible 
     </div>
   </div>
 </section>
-ocusedCard.querySelectorAll('.slide-img[data-images]').forEach(img => {
-      const images = JSON.parse(img.dataset.images);
-      let index = 0;
 
-      setInterval(() => {
-        img.classList.add('fading');
-        setTimeout(() => {
-          index = (index + 1) % images.length;
-          img.src = images[index];
-          img.classList.remove('fading');
-        }, 200);
-      }, 5000);
-    });
 <!-- ═══ SERVICES ══════════════════════════════════════════════════ -->
 <section id="services">
   <div class="container">
@@ -1178,7 +1185,7 @@ and consistently in any market.</p>
       <div class="d-flex flex-wrap gap-2 justify-content-center">
         <button class="filter-btn active" data-filter="all">All</button>
         <button class="filter-btn" data-filter="web">Graphics Designing</button>
-        <button class="filter-btn" data-filter="mobile">Videography</button>
+        <button class="filter-btn" data-filter="mobile">Logo Design</button>
         <button class="filter-btn" data-filter="design">Branding</button>
       </div>
     </div>
@@ -1190,15 +1197,15 @@ and consistently in any market.</p>
           <div class="col-md-6 col-lg-4 reveal project-item" data-category="web">
             <div class="project-card">
               <div class="project-img" style="background: linear-gradient(135deg, #1a2235 0%, #0d1220 100%);">
-                <img src="assets/IMG_2170.PNG" alt="Oasis Technologies" class="slide-img"
-       data-images='["assets/IMG_2170.PNG", "assets/IMG_2168.PNG"]' style="width:100%; height:100%; object-fit:cover; object-position: top; display:block;">
+                <img src="assets/IMG_2170.jpeg" alt="Oasis Technologies" class="slide-img"
+       data-images='["assets/IMG_2170.jpeg", "assets/IMG_2168.jpeg"]' style="width:100%; height:100%; object-fit:cover; object-position: top; display:block;">
                 <div class="project-img-overlay">
                   
                 </div>
               </div>
               <div class="project-body">
-                <h5 class="mb-2" style="font-family: var(--font-head); font-weight:700;">Oasis Technologies</h5>
-                <p class="text-muted" style="font-size:.85rem;">Full-stack shop with real-time inventory, Stripe payments, and admin dashboard.</p>
+                <h5 class="mb-2" style="font-family: var(--font-head); font-weight:700;">Poster Design</h5>
+                <p class="text" style="font-size:.85rem;">Modern poster design with a stylish lean composition, and impactful visuals crafted a strong visual impression</p>
                 <div class="project-tags">
                   <span class="project-tag">Photoshop</span>
                   <span class="project-tag">Cosmos</span>
@@ -1208,17 +1215,17 @@ and consistently in any market.</p>
             </div>
           </div>
 
-          <div class="col-md-6 col-lg-4 reveal project-item" data-category="web">
+          <div class="col-md-6 col-lg-4 reveal project-item" data-category="mobile">
             <div class="project-card">
               <div class="project-img" style="background: linear-gradient(135deg, #1a2235 0%, #0d1220 100%);">
-                <img src="assets/IMG_2165.PNG" alt="Oasis Technologies" style="width:100%; height:100%; object-fit:cover; object-position: top; display:block;">
+                <img src="assets/IMG_2165.jpeg" alt="Oasis Technologies" style="width:100%; height:100%; object-fit:cover; object-position: top; display:block;">
                 <div class="project-img-overlay">
                   
                 </div>
               </div>
               <div class="project-body">
-                <h5 class="mb-2" style="font-family: var(--font-head); font-weight:700;">Mama Chakula</h5>
-                <p class="text-muted" style="font-size:.85rem;">Real-time social media analytics with charts, reports, and team collaboration.</p>
+                <h5 class="mb-2" style="font-family: var(--font-head); font-weight:700;">Mock-up Logo</h5>
+                <p class="text" style="font-size:.85rem;">Sleek and modern mockup logo design that showcases your brand identity</p>
                 <div class="project-tags">
                   <span class="project-tag">Photoshop</span>
                   <span class="project-tag">Pinterest</span>
@@ -1227,17 +1234,17 @@ and consistently in any market.</p>
             </div>
           </div>
 
-          <div class="col-md-6 col-lg-4 reveal project-item" data-category="mobile">
+          <div class="col-md-6 col-lg-4 reveal project-item" data-category="web">
             <div class="project-card">
               <div class="project-img" style="background: linear-gradient(135deg, #1a2235 0%, #0d1220 100%);">
-                <img src="assets/IMG_2171.JPG" alt="Oasis Technologies" style="width:100%; height:100%; object-fit:cover; object-position: top; display:block;">
+                <img src="assets/IMG_2171.jpeg" alt="Oasis Technologies" style="width:100%; height:100%; object-fit:cover; object-position: top; display:block;">
                 <div class="project-img-overlay">
                   
                 </div>
               </div>
               <div class="project-body">
-                <h5 class="mb-2" style="font-family: var(--font-head); font-weight:700;">Karanga inc</h5>
-                <p class="text-muted" style="font-size:.85rem;">Real-time multiplayer mobile gaming with Socket.io and leaderboards.</p>
+                <h5 class="mb-2" style="font-family: var(--font-head); font-weight:700;">Poster design</h5>
+                <p class="text" style="font-size:.85rem;">Creative and visually striking poster design featuring a bold typography, vibrant colors, and professional branding elements</p>
                 <div class="project-tags">
                   <span class="project-tag">React Native</span>
                   <span class="project-tag">Socket.io</span>
@@ -1250,15 +1257,15 @@ and consistently in any market.</p>
           <div class="col-md-6 col-lg-4 reveal project-item" data-category="design">
             <div class="project-card">
               <div class="project-img" style="background: linear-gradient(135deg, #1a2235 0%, #0d1220 100%);">
-                <img src="assets/IMG_2166.PNG" alt="Oasis Technologies" class="slide-img"
-       data-images='["assets/IMG_2166.PNG", "assets/IMG_2164.PNG"]' style="width:100%; height:100%; object-fit:cover; object-position: top; display:block;">
+                <img src="assets/IMG_2166.jpeg" alt="Oasis Technologies" class="slide-img"
+       data-images='["assets/IMG_2166.jpeg", "assets/IMG_2164.jpeg"]' style="width:100%; height:100%; object-fit:cover; object-position: top; display:block;">
                 <div class="project-img-overlay">
                   
                 </div>
               </div>
               <div class="project-body">
-                <h5 class="mb-2" style="font-family: var(--font-head); font-weight:700;">Watoto Foundation</h5>
-                <p class="text-muted" style="font-size:.85rem;">Complete brand system for a fintech startup — logo, design tokens, and style guide.</p>
+                <h5 class="mb-2" style="font-family: var(--font-head); font-weight:700;">Event Poster</h5>
+                <p class="text" style="font-size:.85rem;">Modern event poster design featuring bold visuals, vibrant colors,and stylish typography</p>
                 <div class="project-tags">
                   <span class="project-tag">Figma</span>
                   <span class="project-tag">Illustrator</span>
@@ -1271,14 +1278,14 @@ and consistently in any market.</p>
           <div class="col-md-6 col-lg-4 reveal project-item" data-category="web">
             <div class="project-card">
               <div class="project-img" style="background: linear-gradient(135deg, #1a2235 0%, #0d1220 100%);">
-                <img src="assets/IMG_2162.PNG" alt="Oasis Technologies" style="width:100%; height:100%; object-fit:cover; object-position: top; display:block;">
+                <img src="assets/IMG_2162.jpeg" alt="Oasis Technologies" style="width:100%; height:100%; object-fit:cover; object-position: top; display:block;">
                 <div class="project-img-overlay">
                   
                 </div>
               </div>
               <div class="project-body">
-                <h5 class="mb-2" style="font-family: var(--font-head); font-weight:700;">Mkolinto Brand</h5>
-                <p class="text-muted" style="font-size:.85rem;">Financial literacy tool with income tracking, budgeting, and savings calculators.</p>
+                <h5 class="mb-2" style="font-family: var(--font-head); font-weight:700;">Poster Design</h5>
+                <p class="text" style="font-size:.85rem;">Modern poster design with a stylish lean composition, and impactful visuals crafted a strong visual impression</p>
                 <div class="project-tags">
                   <span class="project-tag">Canva pro</span>
                   <span class="project-tag">Cosmos</span>
@@ -1287,17 +1294,17 @@ and consistently in any market.</p>
             </div>
           </div>
 
-          <div class="col-md-6 col-lg-4 reveal project-item" data-category="mobile">
+          <div class="col-md-6 col-lg-4 reveal project-item" data-category="web">
             <div class="project-card">
              <div class="project-img" style="background: linear-gradient(135deg, #1a2235 0%, #0d1220 100%);">
-                <img src="assets/IMG_2161.PNG" alt="Oasis Technologies" style="width:100%; height:100%; object-fit:cover; object-position: top; display:block;">
+                <img src="assets/IMG_2161.jpeg" alt="Oasis Technologies" style="width:100%; height:100%; object-fit:cover; object-position: top; display:block;">
                 <div class="project-img-overlay">
                   
                 </div>
               </div>
               <div class="project-body">
-                <h5 class="mb-2" style="font-family: var(--font-head); font-weight:700;">DIY Inc</h5>
-                <p class="text-muted" style="font-size:.85rem;">Interactive travel guide for Tanzania with maps, reviews, and booking.</p>
+                <h5 class="mb-2" style="font-family: var(--font-head); font-weight:700;">Poster design</h5>
+                <p class="text" style="font-size:.85rem;">Creative and visually striking poster design featuring a bold typography, vibrant colors, and professional branding elements</p>
                 <div class="project-tags">
                   <span class="project-tag">Flutter</span>
                   <span class="project-tag">Maps API</span>
@@ -1412,32 +1419,75 @@ and consistently in any market.</p>
       </div>
 
       <div class="col-lg-7 reveal">
-        <div style="background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 40px;">
-          <div class="row g-3">
-            <div class="col-md-6">
-              <label>Your Name</label>
-              <input type="text" class="form-control-custom" placeholder="Your Name" />
-            </div>
-            <div class="col-md-6">
-              <label>Your Email</label>
-              <input type="email" class="form-control-custom" placeholder="youremail@example.com" />
-            </div>
-            <div class="col-12">
-              <label>Subject</label>
-              <input type="text" class="form-control-custom" placeholder="Project Discussion" />
-            </div>
-            <div class="col-12">
-              <label>Message</label>
-              <textarea class="form-control-custom" placeholder="Tell me about your project..."></textarea>
-            </div>
-            <div class="col-12">
-              <button class="btn-primary-custom w-100 justify-content-center">
-                <i class="bi bi-send"></i> Send Message
-              </button>
-            </div>
+  <div style="background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 40px;">
+
+    <form id="contactForm" data-endpoint="https://formspree.io/f/mqejdojg">
+      <div class="row g-3">
+
+        <div class="col-md-6">
+          <label>Your Name</label>
+          <input 
+            type="text" 
+            name="name"
+            class="form-control-custom" 
+            placeholder="Your Name"
+            required
+          />
+        </div>
+
+        <div class="col-md-6">
+          <label>Your Email</label>
+          <input 
+            type="email" 
+            name="email"
+            class="form-control-custom" 
+            placeholder="youremail@example.com"
+            required
+          />
+        </div>
+
+        <div class="col-12">
+          <label>Subject</label>
+          <input 
+            type="text" 
+            name="subject"
+            class="form-control-custom" 
+            placeholder="Project Discussion"
+            required
+          />
+        </div>
+
+        <div class="col-12">
+          <label>Message</label>
+          <textarea 
+            name="message"
+            class="form-control-custom" 
+            placeholder="Tell me about your project..."
+            rows="6"
+            required
+          ></textarea>
+        </div>
+
+        <div class="col-12">
+          <button 
+            type="submit"
+            id="submitButton"
+            class="btn-primary-custom w-100 justify-content-center"
+          >
+            <i class="bi bi-send"></i> Send Message
+          </button>
+          <div class="form-status" id="formStatus" role="status" aria-live="polite">
+            <i class="bi bi-check-circle-fill"></i>
+            <span>Message sent. Thank you for reaching out.</span>
           </div>
         </div>
+
       </div>
+
+    </form>
+
+  </div>
+</div>
     </div>
   </div>
 </section>
@@ -1463,10 +1513,10 @@ and consistently in any market.</p>
       </div>
       <div class="col-lg-4 text-lg-end">
         <div class="footer-social">
-          <a href="#"><i class="bi bi-github"></i></a>
-          <a href="#"><i class="bi bi-linkedin"></i></a>
-          <a href="#"><i class="bi bi-twitter-x"></i></a>
-          <a href="#"><i class="bi bi-dribbble"></i></a>
+          <a href="https://www.instagram.com/mk_creatives57/" target="_blank"><i class="bi bi-instagram"></i></a>
+          <a href="https://tiktok.com/mk_creatives57/" target="_blank"><i class="bi bi-tiktok"></i></a>
+          <a href="mailto:petervicenty9@gmail.com"><i class="bi bi-envelope"></i></a>
+          <a href="https://wa.me/255764065715" target="_blank"><i class="bi bi-whatsapp"></i></a>
         </div>
       </div>
     </div>
@@ -1636,6 +1686,50 @@ document.querySelectorAll('.slide-img[data-images]').forEach(img => {
 
   }, 5000); // swap every 3 seconds — change to taste
 });
+
+// ── Contact form acknowledgement ─────────────────────────────────
+const contactForm = document.getElementById('contactForm');
+const formStatus = document.getElementById('formStatus');
+const submitButton = document.getElementById('submitButton');
+const submitButtonHtml = submitButton.innerHTML;
+
+function showFormStatus(message, type = 'success', icon = 'bi-check-circle-fill') {
+  formStatus.classList.toggle('error', type === 'error');
+  formStatus.innerHTML = `<i class="bi ${icon}"></i><span>${message}</span>`;
+  formStatus.classList.add('show');
+}
+
+contactForm.addEventListener('submit', async e => {
+  e.preventDefault();
+
+  showFormStatus('Sending your message...', 'success', 'bi-hourglass-split');
+  submitButton.disabled = true;
+  submitButton.innerHTML = '<i class="bi bi-hourglass-split"></i> Sending...';
+
+  try {
+    const response = await fetch(contactForm.dataset.endpoint, {
+      method: 'POST',
+      body: new FormData(contactForm),
+      headers: { Accept: 'application/json' }
+    });
+
+    if (!response.ok) throw new Error('Message failed');
+
+    showFormStatus('Message sent. Thank you for reaching out.');
+    contactForm.reset();
+
+    setTimeout(() => {
+      formStatus.classList.remove('show');
+    }, 5000);
+  } catch (error) {
+    showFormStatus('Message could not be sent. Please try again.', 'error', 'bi-exclamation-circle-fill');
+  } finally {
+    submitButton.disabled = false;
+    submitButton.innerHTML = submitButtonHtml;
+  }
+});
+
+ 
 
 // ── Smooth nav close on mobile ────────────────────────────────────
 document.querySelectorAll('.nav-link').forEach(link => {
